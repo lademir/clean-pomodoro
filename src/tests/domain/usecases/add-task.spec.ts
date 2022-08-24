@@ -1,28 +1,7 @@
-export {}
-
-class AddTask {    
-    constructor(private readonly repo: AddTaskRepository) {}
-    async perform({title, description}: Task): Promise<void> {
-        if(title === '') throw new NullTitleError()
-        await this.repo.add({title, description})
-    }
-}
-
-class NullTitleError extends Error {
-    constructor() {
-        super('Title is required')
-        this.name = 'NullTitleError'
-    }
-}
-
-type Task = {
-    title: string
-    description?: string
-}
-
-interface AddTaskRepository {
-    add(input: Task): Promise<void>
-}
+import { NullTitleError } from "../../../core/domain/errors/NullTitle";
+import { Task } from "../../../core/domain/models/Task";
+import { AddTaskRepository } from "../../../core/domain/repositories/AddTaskRepository";
+import { AddTask } from "../../../core/domain/usecases/AddTask";
 
 class AddTaskRepositoryMock implements AddTaskRepository {
     callscount = 0
@@ -55,6 +34,7 @@ describe('AddTask', () => {
 
         await expect(promise).rejects.toThrow(NullTitleError)
     });
+
     it('should add task to task list', async () => {
         const { addTaskRepository, sut } = makeSut()
 
