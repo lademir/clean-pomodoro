@@ -3,17 +3,25 @@ export {}
 class AddTask {    
     constructor(private readonly repo: AddTaskRepository) {}
     async perform({title, description}: Task): Promise<void> {
+        if(title === '') throw new NullTitleError()
         await this.repo.add({title, description})
+    }
+}
+
+class NullTitleError extends Error {
+    constructor() {
+        super('Title is required')
+        this.name = 'NullTitleError'
     }
 }
 
 type Task = {
     title: string
-    description: string
+    description?: string
 }
 
 interface AddTaskRepository {
-    add({}: {title: string, description: string}): Promise<void>
+    add(input: Task): Promise<void>
 }
 
 class AddTaskRepositoryMock implements AddTaskRepository {
@@ -39,6 +47,14 @@ const makeSut = (): SutTypes => {
 describe('AddTask', () => {
     const title = 'any_title'
     const description = 'any_description'
+
+    it('should throw if title is null', async () => {
+        const { sut } = makeSut()
+
+        const promise = sut.perform({title: '', description})
+
+        await expect(promise).rejects.toThrow(NullTitleError)
+    });
     it('should add task to task list', async () => {
         const { addTaskRepository, sut } = makeSut()
 
