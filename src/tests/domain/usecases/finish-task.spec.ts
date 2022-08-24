@@ -4,8 +4,8 @@ class FinishTask{
 
     async perform({id, userId}: {id: string, userId: string}): Promise<void> {
         const taskGroup = await this.repo.loadTask({id, userId})
-        if(taskGroup === undefined) throw new Error()
-        if(taskGroup.tasks.some(task => task.userId !== userId)) throw new Error()
+        if(taskGroup === undefined) throw new TaskIdInvalidError()
+        if(taskGroup.tasks.some(task => task.userId !== userId)) throw new UserIdInvalidError()
     }
 }
 
@@ -24,6 +24,20 @@ type Task = {
     finishedAt: Date
     title: string
     status: string
+}
+
+class TaskIdInvalidError extends Error {
+    constructor() {
+        super('Task id is invalid')
+        this.name = 'TaskIdInvalidError'
+    }
+}
+
+class UserIdInvalidError extends Error {
+    constructor() {
+        super('User id is invalid')
+        this.name = 'UserIdInvalidError'
+    }
 }
 
 class LoadFinishTaskRepositoryMock implements LoadFinishTaskRepository{
@@ -85,7 +99,7 @@ describe('FinishTask', () => {
     
         const promise =  sut.perform({id, userId})
     
-        expect(promise).rejects.toThrowError()
+        expect(promise).rejects.toThrowError(TaskIdInvalidError)
     });
     it('should return throw if userId is invalid', async () => {
         const { sut, loadFinishTaskRepository } = makeSut()
@@ -104,6 +118,6 @@ describe('FinishTask', () => {
     
         const promise =  sut.perform({id, userId: 'invalid_user_id'})
     
-        expect(promise).rejects.toThrowError()
+        expect(promise).rejects.toThrowError(UserIdInvalidError)
     });
 });
