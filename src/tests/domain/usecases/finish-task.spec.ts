@@ -2,7 +2,7 @@ import { TaskAlreadyDoneError } from "../../../core/domain/errors/TaskAlreadyDon
 import { TaskIdInvalidError } from "../../../core/domain/errors/TaskIdInvalid";
 import { UserIdInvalidError } from "../../../core/domain/errors/UserIdInvalid";
 import { Task, TaskStatus } from "../../../core/domain/models";
-import { LoadFinishTaskRepository } from "../../../core/domain/repositories/FinishTaskRepository";
+import { LoadFinishTask, LoadFinishTaskRepository } from "../../../core/domain/repositories/FinishTaskRepository";
 import { FinishTask } from "../../../core/domain/usecases/FinishTask";
 class LoadFinishTaskRepositoryMock implements LoadFinishTaskRepository {
     taskId?: string
@@ -19,7 +19,7 @@ class LoadFinishTaskRepositoryMock implements LoadFinishTaskRepository {
         
     
 
-    async loadTask({ id }: { id: string, userId: string }): Promise<Task | undefined> {
+    async loadTask({ id }: LoadFinishTask.Params): Promise<LoadFinishTask.Result> {
         this.taskId = id
         this.callscount++
         return this.output
