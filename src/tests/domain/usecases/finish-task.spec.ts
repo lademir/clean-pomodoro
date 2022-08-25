@@ -1,55 +1,10 @@
-export{}
-class FinishTask{
-    constructor(private readonly repo: LoadFinishTaskRepository) {}
-
-    async perform({ id, userId }: {id: string, userId: string}): Promise<void> {
-        const task = await this.repo.loadTask({id, userId})
-        if(task === undefined) throw new TaskIdInvalidError()
-        if(task.userId !== userId) throw new UserIdInvalidError()
-        if(task.status === "done") throw new TaskAlreadyDoneError()
-
-        task.status = "done"
-    }
-}
-
-interface LoadFinishTaskRepository{
-    loadTask(input: { id: string, userId: string }): Promise<Task | undefined>
-}
-
-
-type Task = {
-    id: string
-    userId: string
-    description: string
-    finishedAt: Date
-    title: string
-    status: TaskStatus
-}
-
-type TaskStatus = "done" | "pending"
-
-class TaskIdInvalidError extends Error {
-    constructor() {
-        super('Task id is invalid')
-        this.name = 'TaskIdInvalidError'
-    }
-}
-
-class UserIdInvalidError extends Error {
-    constructor() {
-        super('User id is invalid')
-        this.name = 'UserIdInvalidError'
-    }
-}
-
-class TaskAlreadyDoneError extends Error {
-    constructor() {
-        super('Task already done')
-        this.name = 'TaskAlreadyDoneError'
-    }
-}
-
-class LoadFinishTaskRepositoryMock implements LoadFinishTaskRepository{
+import { TaskAlreadyDoneError } from "../../../core/domain/errors/TaskAlreadyDone";
+import { TaskIdInvalidError } from "../../../core/domain/errors/TaskIdInvalid";
+import { UserIdInvalidError } from "../../../core/domain/errors/UserIdInvalid";
+import { Task, TaskStatus } from "../../../core/domain/models";
+import { LoadFinishTaskRepository } from "../../../core/domain/repositories/FinishTaskRepository";
+import { FinishTask } from "../../../core/domain/usecases/FinishTask";
+class LoadFinishTaskRepositoryMock implements LoadFinishTaskRepository {
     taskId?: string
     callscount = 0
     output?: Task = 
