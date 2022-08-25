@@ -8,6 +8,7 @@ class FinishTask{
         if(task.userId !== userId) throw new UserIdInvalidError()
         if(task.status === "done") throw new TaskAlreadyDoneError()
 
+        task.status = "done"
     }
 }
 
@@ -133,5 +134,13 @@ describe('FinishTask', () => {
         const promise = sut.perform({ id, userId })
 
         expect(promise).rejects.toThrowError(TaskAlreadyDoneError)
+    });
+
+    it('should change task status to done', async () => {
+        const { loadFinishTaskRepository, sut } = makeSut()
+
+        await sut.perform({ id, userId })
+
+        expect(loadFinishTaskRepository.output?.status).toBe('done')
     });
 });
