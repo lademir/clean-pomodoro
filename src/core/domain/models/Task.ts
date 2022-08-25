@@ -1,10 +1,10 @@
 export type Task = {
     id: string
     userId: string
-    description: string
-    finishedAt: Date
     title: string
+    description: string
     status: TaskStatus
+    finishedAt: Date | null
 }
 
 export type TaskStatus = "done" | "pending"
