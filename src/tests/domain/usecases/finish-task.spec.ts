@@ -12,7 +12,7 @@ class LoadFinishTaskRepositoryMock implements LoadFinishTaskRepository {
                 id: 'any_id',
                 userId: 'any_user_id',
                 description: 'any_description',
-                finishedAt: new Date(),
+                finishedAt: null,
                 title: 'any_title',
                 status: 'pending'
             }
@@ -97,5 +97,6 @@ describe('FinishTask', () => {
         await sut.perform({ id, userId })
 
         expect(loadFinishTaskRepository.output?.status).toBe('done')
+        expect(loadFinishTaskRepository.output?.finishedAt).not.toBeNull()
     });
 });

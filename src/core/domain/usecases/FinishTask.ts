@@ -13,5 +13,6 @@ export class FinishTask{
         if(task.status === "done") throw new TaskAlreadyDoneError()
 
         task.status = "done"
+        task.finishedAt = new Date()
     }
 }
