@@ -1,7 +1,7 @@
 import { TaskAlreadyDoneError } from "../errors/TaskAlreadyDone";
 import { TaskIdInvalidError } from "../errors/TaskIdInvalid";
 import { UserIdInvalidError } from "../errors/UserIdInvalid";
-import { LoadFinishTaskRepository } from "../repositories/FinishTaskRepository";
+import { LoadFinishTaskRepository } from "../repositories/LoadTaskRepository";
 
 export class FinishTask{
     constructor(private readonly repo: LoadFinishTaskRepository) {}
