@@ -89,7 +89,7 @@ describe('DeleteTask', () => {
         await expect(promise).rejects.toThrowError(TaskIdInvalidError)
     });
 
-    it('should throw if userId is invalid', async () => {
+    it('should throw if userId not match with userId on task', async () => {
         const { sut, loadTaskRepositorySpy } = makeSut()
         loadTaskRepositorySpy.output = {...mockDeleteTaskModel(), userId: 'other_user_id'}
         const params = MockDeleteTaskParams()
