@@ -15,7 +15,7 @@ const makeSut = (): SutTypes => {
 }
 describe('AddTask', () => {
 
-    it('should throw if title is null', async () => {
+    it('should throw if title is invalid', async () => {
         const { sut } = makeSut()
         const addAccountParams = {...mockAddTaskAccountParams(), title: ''}
 
