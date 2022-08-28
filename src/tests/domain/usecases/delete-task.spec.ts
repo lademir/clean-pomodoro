@@ -1,48 +1,12 @@
 import { TaskIdInvalidError } from "../../../core/domain/errors/TaskIdInvalid";
 import { UserIdInvalidError } from "../../../core/domain/errors/UserIdInvalid";
 import { Task } from "../../../core/domain/models";
+import { DeleteTaskRepository } from "../../../core/domain/repositories";
 import { LoadTaskRepository } from "../../../core/domain/repositories/LoadTaskRepository";
+import { DeleteTask } from "../../../core/domain/usecases/DeleteTask";
+import { mockDeleteTaskModel, MockDeleteTaskParams } from "../mocks/mock-delete-task";
 import { mockTaskModel } from "../mocks/mock-task";
 
-
-class DeleteTask{
-    constructor(
-        private readonly loadTaskRepository: LoadTaskRepository,
-        private readonly deleteTaskRepository: DeleteTaskRepository
-    ) {}
-
-    async perform({ id, userId }: DeleteTask.Params): Promise<DeleteTask.Result> {
-        const task = await this.loadTaskRepository.loadTask({ id, userId })
-        if(!task){
-            throw new TaskIdInvalidError()
-        }
-        if(task.userId !== userId){
-            throw new UserIdInvalidError()
-        }
-        this.deleteTaskRepository.delete({ id })
-    }
-}
-
-namespace DeleteTask {
-    export type Params = {
-        id: string
-        userId: string
-    }
-    export type Result = void
-
-    export type Model = Task
-}
-
-interface DeleteTaskRepository {
-    delete: (params: DeleteTaskRepository.Params) => Promise<DeleteTaskRepository.Result>
-}
-
-namespace DeleteTaskRepository {
-    export type Params = {
-        id: string
-    }
-    export type Result = void
-}
 
 class LoadTaskRepositorySpy implements LoadTaskRepository {
     taskId?: string
@@ -62,22 +26,14 @@ class DeleteTaskRepositoryMock implements DeleteTaskRepository {
     callscount = 0
     id?: string
 
-    async delete({ id }: DeleteTaskRepository.Params): Promise<DeleteTask.Result> {
+    async delete({ id }: DeleteTaskRepository.Params): Promise<DeleteTaskRepository.Result> {
         this.callscount++
         this.id = id
     }
 }
 
 
-const MockDeleteTaskParams = (): DeleteTask.Params => {
-    const id = 'any_task_id'
-    const userId = 'any_user_id'
-    return {
-        id, userId
-    }
-}
 
-const mockDeleteTaskModel = (): Task => mockTaskModel()
 
 type SutTypes = {
     sut: DeleteTask
