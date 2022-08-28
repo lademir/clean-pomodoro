@@ -4,7 +4,7 @@ import { UserIdInvalidError } from "../../../core/domain/errors/UserIdInvalid";
 import { Task, TaskStatus } from "../../../core/domain/models";
 import { LoadTaskRepository } from "../../../core/domain/repositories/LoadTaskRepository";
 import { FinishTask } from "../../../core/domain/usecases/FinishTask";
-class LoadFinishTaskRepositoryMock implements LoadTaskRepository {
+class LoadFinishTaskRepositorySpy implements LoadTaskRepository {
     taskId?: string
     callscount = 0
     output?: Task = 
@@ -28,11 +28,11 @@ class LoadFinishTaskRepositoryMock implements LoadTaskRepository {
 
 type SutTypes = {
     sut: FinishTask
-    loadFinishTaskRepository: LoadFinishTaskRepositoryMock
+    loadFinishTaskRepository: LoadFinishTaskRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
-    const loadFinishTaskRepository = new LoadFinishTaskRepositoryMock()
+    const loadFinishTaskRepository = new LoadFinishTaskRepositorySpy()
     const sut = new FinishTask(loadFinishTaskRepository)
     return {
         sut,
