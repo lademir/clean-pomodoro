@@ -5,6 +5,7 @@ export type Task = {
     description: string
     status: TaskStatus
     finishedAt: Date | null
+    limitDate: Date | null
 }
 
 export type TaskStatus = "done" | "pending"
