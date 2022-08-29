@@ -10,8 +10,11 @@
 > ## Fluxo de exceção: Tarefa não encontrada
 1. Retornar erro "tarefa não encontrada"
 
+> ## Fluxo de exceção: Tarefa não pertence ao usuário
+1. Retornar erro "tarefa não pertence ao usuário"
+
 > ## Fluxo alternativo: Tarefa feita
-2. Retornar status "feita" se a tarefa estiver marcada como feita
+1. Retornar status "feita" se a tarefa estiver marcada como feita
 
 > ## Fluxo alternativo: Data limite maior que a data atual
 2. Retornar status "pendente" se a data limite for maior que a data atual

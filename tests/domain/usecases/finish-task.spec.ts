@@ -1,6 +1,5 @@
 import { TaskAlreadyDoneError, TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
-import { Task, TaskStatus } from "@/core/domain/models";
-import { LoadTaskRepository } from "@/core/domain/repositories";
+import { TaskStatus } from "@/core/domain/models";
 import { FinishTask } from "@/core/domain/usecases";
 import { LoadTaskRepositorySpy } from "../mocks/data/load-task-mock";
 
