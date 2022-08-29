@@ -1,8 +1,7 @@
 import { TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
 import { LoadTaskRepository } from "@/core/domain/repositories";
-import { LoadTaskRepositorySpy } from "../mocks/data/load-task-mock";
-import { mockTaskModel } from "../mocks/models";
-
+import { LoadTaskRepositorySpy } from "@/tests/domain/mocks/data";
+import { mockTaskModel } from "@/tests/domain/mocks/models";
 class CheckLimitDate {
     constructor (private readonly loadTaskRepository: LoadTaskRepository){}
 
@@ -75,24 +74,23 @@ describe('CheckLimitDate', () => {
 
     it('should throw if id is invalid', async () => {
         const { sut, loadTaskRepositorySpy } = makeSut()
-        loadTaskRepositorySpy.output = undefined
+        loadTaskRepositorySpy.output = undefined // nao encontra a tarefa com o id passado
 
-        const promise = sut.perform(mockCheckLimitDateParams())
+        const promise = sut.perform({...mockCheckLimitDateParams(), id: 'invalid_id'})
 
         await expect(promise).rejects.toThrowError(TaskIdInvalidError)
     });
     
     it('should throw if userId is invalid', async () => {
-        const { sut, loadTaskRepositorySpy } = makeSut()
-        loadTaskRepositorySpy.output = {...mockTaskModel(), userId: 'invalid_user_id'}
+        const { sut } = makeSut()
 
-        const promise =  sut.perform(mockCheckLimitDateParams())
+        const promise =  sut.perform({...mockCheckLimitDateParams(), userId: 'invalid_user_id'})
 
         await expect(promise).rejects.toThrowError(UserIdInvalidError)
     });
 
     it('should return LimitDateNotDefinedException if limit date is not defined', async () => {
-        const { sut, loadTaskRepositorySpy } = makeSut()
+        const { sut } = makeSut()
 
         const exception = await sut.perform(mockCheckLimitDateParams())
 
