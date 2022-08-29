@@ -8,4 +8,5 @@ export const mockTaskModel = (): Task => ({
     description: "any_description",
     status: "pending",
     finishedAt: null,
+    limitDate: null
 })
