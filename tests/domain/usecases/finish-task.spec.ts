@@ -25,6 +25,7 @@ describe('FinishTask', () => {
     const finishedAt = new Date()
     const title = 'any_title'
     const status: TaskStatus = 'pending'
+    const limitDate = null
 
     it('should get task with correct id', async () => {
         const { sut, loadFinishTaskRepository } = makeSut()
@@ -51,7 +52,8 @@ describe('FinishTask', () => {
                     description,
                     finishedAt,
                     title,
-                    status
+                    status,
+                    limitDate
                 }
     
         const promise =  sut.perform({id, userId: 'invalid_user_id'})
