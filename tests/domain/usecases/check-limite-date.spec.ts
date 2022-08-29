@@ -13,6 +13,16 @@ class CheckLimitDate {
         if(!task.limitDate) {
             return new LimitDateNotDefinedException()
         }
+
+        const now = new Date()
+
+        if(now < task.limitDate) {
+            task.status = "pending"
+        }
+        
+        if(now > task.limitDate) {
+            task.status = "late"
+        }
     }
 }
 
@@ -85,21 +95,23 @@ describe('CheckLimitDate', () => {
         expect(exception).toEqual(new LimitDateNotDefinedException())
     });
 
-    // it('should update status to pending when now is before limit date', async () => {
-    //     const { sut, loadTaskRepositorySpy } = makeSut()
-    //     loadTaskRepositorySpy.output = {...mockTaskModel(), limitDate: new Date('2021-01-01')}
+    it('should update status to pending when now is before limit date', async () => {
+        const { sut, loadTaskRepositorySpy } = makeSut()
+        const oneDayAfterToday = new Date()
+        oneDayAfterToday.setDate(oneDayAfterToday.getDate() + 1) // 1 day after today
+        loadTaskRepositorySpy.output = {...mockTaskModel(), limitDate: oneDayAfterToday}
 
-    //     await sut.perform(mockCheckLimitDateParams())
+        await sut.perform(mockCheckLimitDateParams())
 
-    //     expect(loadTaskRepositorySpy.output.status).toBe('pending')
-    // });
+        expect(loadTaskRepositorySpy.output.status).toBe('pending')
+    });
 
-    // it('should update status to late when now is after limit date', async () => {
-    //     const { sut, loadTaskRepositorySpy } = makeSut()
-    //     loadTaskRepositorySpy.output = {...mockTaskModel(), limitDate: new Date('2021-01-01')}
+    it('should update status to late when now is after limit date', async () => {
+        const { sut, loadTaskRepositorySpy } = makeSut()
+        loadTaskRepositorySpy.output = {...mockTaskModel(), limitDate: new Date('2021-01-01')}
 
-    //     await sut.perform(mockCheckLimitDateParams())
+        await sut.perform(mockCheckLimitDateParams())
 
-    //     expect(loadTaskRepositorySpy.output.status).toBe('pending')
-    // });
+        expect(loadTaskRepositorySpy.output.status).toBe('late')
+    });
 });
