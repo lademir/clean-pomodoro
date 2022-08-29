@@ -8,4 +8,4 @@ export type Task = {
     limitDate: Date | null
 }
 
-export type TaskStatus = "done" | "pending" | "late"
+export type TaskStatus = "done" | "pending" | "late" | "done late"

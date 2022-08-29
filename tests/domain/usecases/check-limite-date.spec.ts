@@ -23,6 +23,10 @@ class CheckLimitDate {
         if(now > task.limitDate) {
             task.status = "late"
         }
+
+        if(task.finishedAt && task.limitDate < task.finishedAt) {
+            task.status = "done late"
+        }
     }
 }
 
@@ -113,5 +117,14 @@ describe('CheckLimitDate', () => {
         await sut.perform(mockCheckLimitDateParams())
 
         expect(loadTaskRepositorySpy.output.status).toBe('late')
+    });
+
+    it('should update status to done late when now is after limit date', async () => {
+        const { sut, loadTaskRepositorySpy } = makeSut()
+        loadTaskRepositorySpy.output = {...mockTaskModel(), limitDate: new Date('2021-01-01'), finishedAt: new Date()}
+
+        await sut.perform(mockCheckLimitDateParams())
+
+        expect(loadTaskRepositorySpy.output.status).toBe('done late')
     });
 });

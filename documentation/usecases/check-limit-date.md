@@ -19,5 +19,8 @@
 > ## Fluxo alternativo: Data limite não definida
 2. Retornar status "sem data limite" se a data limite não estiver definida
 
+> ## Fluxo alternativo: Data limite maior que data de finalizacao e for concluir a tarefa
+2. Retornar status "concluída com atraso" se a data limite for maior que a data de finalizacao e a tarefa for concluída
+
 
 
