@@ -1,10 +1,8 @@
-import { TaskAlreadyDoneError } from "../errors/TaskAlreadyDone";
-import { TaskIdInvalidError } from "../errors/TaskIdInvalid";
-import { UserIdInvalidError } from "../errors/UserIdInvalid";
-import { LoadFinishTaskRepository } from "../repositories/LoadTaskRepository";
+import { TaskAlreadyDoneError, TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
+import { LoadTaskRepository } from "@/core/domain/repositories";
 
 export class FinishTask{
-    constructor(private readonly repo: LoadFinishTaskRepository) {}
+    constructor(private readonly repo: LoadTaskRepository) {}
 
     async perform({ id, userId }: {id: string, userId: string}): Promise<void> {
         const task = await this.repo.loadTask({id, userId})

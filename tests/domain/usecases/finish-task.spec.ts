@@ -1,9 +1,9 @@
-import { TaskAlreadyDoneError } from "../../../core/domain/errors/TaskAlreadyDone";
-import { TaskIdInvalidError } from "../../../core/domain/errors/TaskIdInvalid";
-import { UserIdInvalidError } from "../../../core/domain/errors/UserIdInvalid";
-import { Task, TaskStatus } from "../../../core/domain/models";
-import { LoadTaskRepository } from "../../../core/domain/repositories/LoadTaskRepository";
-import { FinishTask } from "../../../core/domain/usecases/FinishTask";
+import { TaskAlreadyDoneError, TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
+import { Task, TaskStatus } from "@/core/domain/models";
+import { LoadTaskRepository } from "@/core/domain/repositories";
+import { FinishTask } from "@/core/domain/usecases";
+
+
 class LoadFinishTaskRepositorySpy implements LoadTaskRepository {
     taskId?: string
     callscount = 0

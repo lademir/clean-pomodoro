@@ -1,4 +1,5 @@
-import { Task } from "../models/Task";
+import { Task } from "@/core/domain/models/Task" 
+
 
 export interface LoadTaskRepository{
     loadTask(input: LoadTaskRepository.Params): Promise<LoadTaskRepository.Result>

@@ -1,6 +1,6 @@
-import { NullTitleError } from "../../../core/domain/errors/NullTitle";
-import { AddTask } from "../../../core/domain/usecases/AddTask"
-import { AddTaskRepositoryStub, mockAddTaskAccountParams } from "../mocks/mock-add-task";
+import { NullTitleError } from "@/core/domain/errors/NullTitle";
+import { AddTask } from "@/core/domain/usecases/AddTask";
+import { AddTaskRepositoryStub, mockAddTaskAccountParams } from "@/tests/domain/mocks/models";
 
 
 type SutTypes = {

@@ -1,4 +1,5 @@
-import { Task } from "../../../core/domain/models";
+import { Task } from "@/core/domain/models";
+
 
 export const mockTaskModel = (): Task => ({
     id: "any_id",

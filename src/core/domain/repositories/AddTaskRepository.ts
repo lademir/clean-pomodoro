@@ -1,6 +1,10 @@
-import { Task, TaskStatus } from "../models/Task";
-import { AddTask } from "../usecases/AddTask";
+import { AddTask } from "@/core/domain/usecases/AddTask";
 
 export interface AddTaskRepository {
-    add(input: AddTask.Params): Promise<AddTask.Result>
+    add(input: AddTaskRepository.Params): Promise<AddTaskRepository.Result>
+}
+
+export namespace AddTaskRepository {
+    export type Params = AddTask.Params
+    export type Result = AddTask.Result
 }

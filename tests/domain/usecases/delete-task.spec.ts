@@ -1,12 +1,8 @@
-import { TaskIdInvalidError } from "../../../core/domain/errors/TaskIdInvalid";
-import { UserIdInvalidError } from "../../../core/domain/errors/UserIdInvalid";
-import { Task } from "../../../core/domain/models";
-import { DeleteTaskRepository } from "../../../core/domain/repositories";
-import { LoadTaskRepository } from "../../../core/domain/repositories/LoadTaskRepository";
-import { DeleteTask } from "../../../core/domain/usecases/DeleteTask";
-import { mockDeleteTaskModel, MockDeleteTaskParams } from "../mocks/mock-delete-task";
-import { mockTaskModel } from "../mocks/mock-task";
-
+import { Task } from "@/core/domain/models";
+import { DeleteTask } from "@/core/domain/usecases/DeleteTask";
+import { TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
+import { DeleteTaskRepository, LoadTaskRepository } from "@/core/domain/repositories";
+import { mockDeleteTaskModel, MockDeleteTaskParams, mockTaskModel } from "@/tests/domain/mocks/models";
 
 class LoadTaskRepositorySpy implements LoadTaskRepository {
     taskId?: string

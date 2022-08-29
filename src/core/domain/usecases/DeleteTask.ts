@@ -1,6 +1,7 @@
-import { TaskIdInvalidError, UserIdInvalidError } from "../errors";
-import { Task } from "../models";
-import { DeleteTaskRepository, LoadTaskRepository } from "../repositories";
+import { TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
+import { Task } from "@/core/domain/models";
+import { DeleteTaskRepository, LoadTaskRepository } from "@/core/domain/repositories";
+
 
 export class DeleteTask{
     constructor(

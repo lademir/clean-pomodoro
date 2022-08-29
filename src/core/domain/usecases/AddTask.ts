@@ -1,6 +1,7 @@
-import { NullTitleError } from "../errors/NullTitle";
-import { Task, TaskStatus } from "../models/Task";
-import { AddTaskRepository } from "../repositories/AddTaskRepository";
+import { NullTitleError } from "@/core/domain/errors";
+import { Task, TaskStatus } from "@/core/domain/models";
+import { AddTaskRepository } from "@/core/domain/repositories";
+
 
 export class AddTask {    
     constructor(private readonly repo: AddTaskRepository) {}

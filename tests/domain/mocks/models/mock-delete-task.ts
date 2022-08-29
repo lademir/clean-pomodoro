@@ -1,6 +1,7 @@
-import { Task } from "../../../core/domain/models";
-import { DeleteTask } from "../../../core/domain/usecases/DeleteTask";
+import { Task } from "@/core/domain/models";
+import { DeleteTask } from "@/core/domain/usecases/DeleteTask";
 import { mockTaskModel } from "./mock-task";
+
 
 export const MockDeleteTaskParams = (): DeleteTask.Params => {
     const id = 'any_task_id'
