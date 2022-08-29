@@ -1,34 +1,9 @@
-import { Task } from "@/core/domain/models";
 import { DeleteTask } from "@/core/domain/usecases/DeleteTask";
 import { TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
 import { DeleteTaskRepository, LoadTaskRepository } from "@/core/domain/repositories";
 import { mockDeleteTaskModel, MockDeleteTaskParams, mockTaskModel } from "@/tests/domain/mocks/models";
-
-class LoadTaskRepositorySpy implements LoadTaskRepository {
-    taskId?: string
-    userId?: string
-    callscount = 0
-    output?: Task = mockTaskModel()
-
-    async loadTask({ id, userId }: LoadTaskRepository.Params): Promise<LoadTaskRepository.Result> {
-        this.taskId = id
-        this.userId = userId
-        this.callscount++
-        return this.output
-    }
-}
-
-class DeleteTaskRepositoryMock implements DeleteTaskRepository {
-    callscount = 0
-    id?: string
-
-    async delete({ id }: DeleteTaskRepository.Params): Promise<DeleteTaskRepository.Result> {
-        this.callscount++
-        this.id = id
-    }
-}
-
-
+import { LoadTaskRepositorySpy } from "../mocks/data/load-task-mock";
+import { DeleteTaskRepositoryMock } from "../mocks/data/delete-task-mock";
 
 
 type SutTypes = {

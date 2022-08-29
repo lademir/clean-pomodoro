@@ -2,37 +2,16 @@ import { TaskAlreadyDoneError, TaskIdInvalidError, UserIdInvalidError } from "@/
 import { Task, TaskStatus } from "@/core/domain/models";
 import { LoadTaskRepository } from "@/core/domain/repositories";
 import { FinishTask } from "@/core/domain/usecases";
+import { LoadTaskRepositorySpy } from "../mocks/data/load-task-mock";
 
-
-class LoadFinishTaskRepositorySpy implements LoadTaskRepository {
-    taskId?: string
-    callscount = 0
-    output?: Task = 
-            {   
-                id: 'any_id',
-                userId: 'any_user_id',
-                description: 'any_description',
-                finishedAt: null,
-                title: 'any_title',
-                status: 'pending'
-            }
-        
-    
-
-    async loadTask({ id }: LoadTaskRepository.Params): Promise<LoadTaskRepository.Result> {
-        this.taskId = id
-        this.callscount++
-        return this.output
-    }
-}
 
 type SutTypes = {
     sut: FinishTask
-    loadFinishTaskRepository: LoadFinishTaskRepositorySpy
+    loadFinishTaskRepository: LoadTaskRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
-    const loadFinishTaskRepository = new LoadFinishTaskRepositorySpy()
+    const loadFinishTaskRepository = new LoadTaskRepositorySpy()
     const sut = new FinishTask(loadFinishTaskRepository)
     return {
         sut,
