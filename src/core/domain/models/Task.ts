@@ -2,7 +2,7 @@ export type Task = {
     id: string
     userId: string
     title: string
-    description: string
+    description?: string
     status: TaskStatus
     finishedAt: Date | null
     limitDate: Date | null
