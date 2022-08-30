@@ -1,6 +1,7 @@
 import { NullTitleError } from "@/core/domain/errors";
 import { Task, TaskStatus } from "@/core/domain/models";
 import { AddTaskRepository } from "@/core/domain/repositories";
+import { TaskDto } from "@/core/infra/db/dto/task-dto";
 
 
 export class AddTask {    
@@ -21,14 +22,7 @@ export namespace AddTask {
         userId: string
     }
 
-    export type Result = {
-        id: string
-        userId: string
-        title: string
-        description: string
-        status: TaskStatus
-        finishedAt: Date | null
-    }
+    export type Result = TaskDto
 
     export type Model = Task
 }
