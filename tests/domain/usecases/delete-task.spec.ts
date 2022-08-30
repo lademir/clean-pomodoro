@@ -1,7 +1,6 @@
 import { DeleteTask } from "@/core/domain/usecases/DeleteTask";
 import { TaskIdInvalidError, UserIdInvalidError } from "@/core/domain/errors";
-import { DeleteTaskRepository, LoadTaskRepository } from "@/core/domain/repositories";
-import { mockDeleteTaskModel, MockDeleteTaskParams, mockTaskModel } from "@/tests/domain/mocks/models";
+import { mockDeleteTaskModel, MockDeleteTaskParams } from "@/tests/domain/mocks/models";
 import { LoadTaskRepositorySpy } from "../mocks/data/load-task-mock";
 import { DeleteTaskRepositoryMock } from "../mocks/data/delete-task-mock";
 
