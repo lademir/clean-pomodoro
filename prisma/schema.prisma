@@ -15,7 +15,7 @@ model Task {
   userId      String    @map("user_id")
   title       String
   description String?
-  status      String
+  status      String    @default("pending")
   finishedAt  DateTime? @map("finished_at")
   limitDate   DateTime? @map("limit_date")
   createdAt   DateTime  @default(now()) @map("created_at")
